@@ -104,3 +104,61 @@ class ArticleResponse(ArticleBase):
     id: int
     created_at: datetime
     updated_at: datetime
+
+
+# ── Knowledge Category ──
+
+class KnowledgeCategoryBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    parent_id: Optional[int] = None
+    icon: Optional[str] = None
+
+
+class KnowledgeCategoryCreate(KnowledgeCategoryBase):
+    pass
+
+
+class KnowledgeCategoryResponse(KnowledgeCategoryBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    created_at: datetime
+
+
+# ── Knowledge Entry ──
+
+class KnowledgeEntryBase(BaseModel):
+    title: str
+    content: str
+    summary: Optional[str] = None
+    entry_type: str = "concept"
+    category_id: Optional[int] = None
+    tags: Optional[str] = None
+    source_url: Optional[str] = None
+    difficulty_level: int = 1
+    metadata_json: Optional[str] = None
+
+
+class KnowledgeEntryCreate(KnowledgeEntryBase):
+    pass
+
+
+class KnowledgeEntryUpdate(BaseModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
+    summary: Optional[str] = None
+    entry_type: Optional[str] = None
+    category_id: Optional[int] = None
+    tags: Optional[str] = None
+    source_url: Optional[str] = None
+    difficulty_level: Optional[int] = None
+    metadata_json: Optional[str] = None
+
+
+class KnowledgeEntryResponse(KnowledgeEntryBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    created_at: datetime
+    updated_at: datetime
