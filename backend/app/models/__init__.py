@@ -1,6 +1,7 @@
 from app.models.database import Base, get_db
 from app.models.knowledge import KnowledgeCategory, KnowledgeEntry
 from app.models.learning import LearningPath, LearningTask, CodeSnippet, Article
+from app.models.code import CodeCollection
 
 __all__ = [
     "Base",
@@ -11,4 +12,5 @@ __all__ = [
     "LearningTask",
     "CodeSnippet",
     "Article",
+    "CodeCollection",
 ]

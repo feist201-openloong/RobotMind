@@ -162,3 +162,39 @@ class KnowledgeEntryResponse(KnowledgeEntryBase):
     id: int
     created_at: datetime
     updated_at: datetime
+
+
+# ── Code Collection ──
+
+class CodeCollectionBase(BaseModel):
+    title: str
+    code: str
+    language: str = "python"
+    description: Optional[str] = None
+    tags: Optional[str] = None
+    source_file: Optional[str] = None
+    project_name: Optional[str] = None
+    difficulty_level: int = 1
+
+
+class CodeCollectionCreate(CodeCollectionBase):
+    pass
+
+
+class CodeCollectionUpdate(BaseModel):
+    title: Optional[str] = None
+    code: Optional[str] = None
+    language: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[str] = None
+    source_file: Optional[str] = None
+    project_name: Optional[str] = None
+    difficulty_level: Optional[int] = None
+
+
+class CodeCollectionResponse(CodeCollectionBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    created_at: datetime
+    updated_at: datetime
