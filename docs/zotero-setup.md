@@ -128,6 +128,29 @@ Zotero Connector 是浏览器扩展，用于快速保存网页文献。
 - **安装**: GitHub 下载安装
 - **配置**: 自动重命名附件文件
 
+#### Zotero Abstract
+- **功能**: 摘要管理，自动提取和整理论文摘要
+- **下载**: https://github.com/northword/zotero-abstract
+- **安装**:
+  1. 从 GitHub Releases 下载最新 `.xpi` 文件
+  2. Zotero → 工具 → 插件 → 从文件安装
+  3. 重启 Zotero
+
+**功能说明:**
+- 自动提取 PDF 中的摘要内容
+- 支持批量处理多篇论文摘要
+- 可导出摘要为 Markdown 格式
+- 与 Zotero 笔记系统集成
+
+**配置建议:**
+```
+编辑 → 设置 → Zotero Abstract:
+├── 自动提取: 启用
+├── 导出格式: Markdown
+├── 摘要长度限制: 500 字
+└── 批量处理: 启用
+```
+
 ### 2.2 插件安装通用步骤
 
 ```
@@ -813,6 +836,14 @@ echo "Obsidian 文献库路径: $BIBLIOGRAPHY_DIR"
 | 翻译整个句子 | `Ctrl + Shift + T` |
 | 复制翻译结果 | `Ctrl + C` |
 
+### Zotero Abstract
+
+| 功能 | 快捷键 |
+|------|--------|
+| 提取摘要 | `Ctrl + Shift + A` |
+| 批量处理 | `Ctrl + Alt + A` |
+| 导出摘要 | `Ctrl + E` |
+
 ## 10. 资源链接
 
 ### 官方资源
@@ -823,6 +854,7 @@ echo "Obsidian 文献库路径: $BIBLIOGRAPHY_DIR"
 ### 插件资源
 - Better BibTeX: https://retorque.re/zotero-better-bibtex/
 - Zotero PDF Translate: https://github.com/windingwind/zotero-pdf-translate
+- Zotero Abstract: https://github.com/northword/zotero-abstract
 - Zotero Integration: https://github.com/mgmeyers/obsidian-zotero-integration
 
 ### 社区资源
@@ -831,6 +863,6 @@ echo "Obsidian 文献库路径: $BIBLIOGRAPHY_DIR"
 
 ---
 
-**最后更新**: 2024年7月  
+**最后更新**: 2026年7月  
 **维护者**: MiMoCode Team  
-**版本**: 1.0
+**版本**: 1.1

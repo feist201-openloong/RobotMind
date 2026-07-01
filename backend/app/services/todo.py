@@ -129,6 +129,7 @@ class TodoService:
         )
         in_progress_tasks = self.db.scalar(in_progress_query) or 0
 
+        now = datetime.now()
         overdue_query = select(func.count(TodoTask.id)).where(
             and_(
                 TodoTask.status.in_(["pending", "in_progress"]),
@@ -137,7 +138,6 @@ class TodoService:
         )
         overdue_tasks = self.db.scalar(overdue_query) or 0
 
-        now = datetime.now()
         category_stats_query = (
             select(TodoTask.category, func.count(TodoTask.id))
             .where(TodoTask.status != "completed")
