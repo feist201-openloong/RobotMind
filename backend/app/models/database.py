@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Generator
 
-from sqlalchemy import DateTime, create_engine, func
+from sqlalchemy import Column, DateTime, create_engine, func
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.config import settings
@@ -15,8 +15,8 @@ class Base(DeclarativeBase):
 
 
 class TimestampMixin:
-    created_at = DateTime(timezone=True, server_default=func.now(), nullable=False)
-    updated_at = DateTime(timezone=True, server_default=func.now(), onupdate=func.now(), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
 
 def get_db() -> Generator[Session, None, None]:
