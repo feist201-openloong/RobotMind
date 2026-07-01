@@ -211,3 +211,74 @@ class CodeCollectionResponse(CodeCollectionBase):
     id: int
     created_at: datetime
     updated_at: datetime
+
+
+# ── Todo Task ──
+
+class TodoTaskBase(BaseModel):
+    title: str
+    description: Optional[str] = None
+    priority: int = 3  # 1-5, 1=highest
+    due_date: Optional[datetime] = None
+    estimated_minutes: Optional[int] = None
+    tags: Optional[str] = None
+    category: str = "other"
+
+
+class TodoTaskCreate(TodoTaskBase):
+    pass
+
+
+class TodoTaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    priority: Optional[int] = None
+    due_date: Optional[datetime] = None
+    estimated_minutes: Optional[int] = None
+    actual_minutes: Optional[int] = None
+    tags: Optional[str] = None
+    category: Optional[str] = None
+
+
+class TodoTaskStatusUpdate(BaseModel):
+    status: str
+
+
+class TodoTaskResponse(TodoTaskBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    status: str
+    actual_minutes: Optional[int] = None
+    completed_at: Optional[datetime] = None
+    created_at: datetime
+    updated_at: datetime
+
+
+class TodoScheduleTask(BaseModel):
+    task_id: int
+    title: str
+    priority: int
+    estimated_minutes: int
+    due_date: Optional[str] = None
+    category: str
+
+
+class TodoScheduleResponse(BaseModel):
+    date: str
+    available_minutes: int
+    scheduled_minutes: int
+    remaining_minutes: int
+    tasks: list[TodoScheduleTask]
+    total_tasks: int
+
+
+class TodoDailySummary(BaseModel):
+    date: str
+    total_tasks: int
+    completed_today: int
+    pending_tasks: int
+    in_progress_tasks: int
+    overdue_tasks: int
+    category_stats: dict[str, int]
+    priority_stats: dict[int, int]
