@@ -1,6 +1,8 @@
-# 人形机器人助学助手系统 (Robotics Learning Assistant)
+# RobotMind - 人形机器人助学助手系统
 
-> 一套完整的助学助手系统，用于支持人形机器人领域的学习和研究
+> 具身智能开发学习平台 | BeyondMiMic · ISAAC Lab · VLA
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 项目介绍
 
@@ -36,9 +38,10 @@ MacBook Air (前端)                    本地服务器 (后端)
 ### 网络拓扑
 
 ```
-MacBook Air ──SSH──> 本地服务器 (10.185.157.92)
-     │
-     └──> 内网访问 (可选 VPN)
+MacBook Air ──Tailscale VPN──> 本地服务器
+     │                              │
+     │   100.109.226.81             │ 100.126.98.106
+     └──────────────────────────────┘
 ```
 
 ## 快速开始
@@ -46,9 +49,31 @@ MacBook Air ──SSH──> 本地服务器 (10.185.157.92)
 ### 1. 克隆项目
 
 ```bash
-git clone <仓库地址>
-cd MimoCode
+git clone https://github.com/feist201-openloong/RobotMind.git
+cd RobotMind
 ```
+
+### 多设备同步
+
+在另一台电脑（如 MacBook）上同步项目：
+
+```bash
+# 克隆项目
+git clone https://github.com/feist201-openloong/RobotMind.git
+cd RobotMind
+
+# 配置用户信息
+git config user.name "你的姓名"
+git config user.email "你的邮箱"
+
+# 拉取最新代码
+git pull origin master
+```
+
+**同步工作流**：
+1. 在服务器上修改代码
+2. 提交并推送：`git add -A && git commit -m "更新说明" && git push`
+3. 在 MacBook 上拉取：`git pull`
 
 ### 2. 服务器环境配置
 
@@ -81,10 +106,28 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
+### 6. 配置 Tailscale 远程连接
+
+```bash
+# 安装 Tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# 启动并登录
+sudo tailscale up
+```
+
+登录后，MacBook 可以通过 Tailscale IP 直接连接服务器：
+
+```bash
+ssh dell@<服务器Tailscale-IP>
+```
+
+在 VS Code 中使用 Remote-SSH 连接：`Remote-SSH: Connect to Host` → 输入 `dell@<服务器Tailscale-IP>`
+
 ## 项目结构
 
 ```
-MimoCode/
+RobotMind/
 ├── backend/                    # 后端服务 (FastAPI)
 │   ├── app/
 │   │   ├── models/            # 数据模型
