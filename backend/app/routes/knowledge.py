@@ -12,7 +12,7 @@ from app.schemas import (
     KnowledgeEntryResponse,
     KnowledgeEntryUpdate,
 )
-from app.services import knowledge as svc
+from app.services.knowledge import knowledge_service
 
 router = APIRouter(prefix="/knowledge", tags=["knowledge"])
 
@@ -21,19 +21,19 @@ router = APIRouter(prefix="/knowledge", tags=["knowledge"])
 
 @router.post("/categories", response_model=KnowledgeCategoryResponse, status_code=status.HTTP_201_CREATED)
 def create_category(payload: KnowledgeCategoryCreate, db: Session = Depends(get_db)):
-    return svc.create_category(db, **payload.model_dump())
+    return knowledge_service.create_category(db, **payload.model_dump())
 
 
 @router.get("/categories", response_model=List[KnowledgeCategoryResponse])
 def list_categories(db: Session = Depends(get_db)):
-    return svc.get_categories(db)
+    return knowledge_service.get_categories(db)
 
 
 # ── Entries ──
 
 @router.post("/entries", response_model=KnowledgeEntryResponse, status_code=status.HTTP_201_CREATED)
 def create_entry(payload: KnowledgeEntryCreate, db: Session = Depends(get_db)):
-    return svc.create_entry(db, **payload.model_dump())
+    return knowledge_service.create_entry(db, **payload.model_dump())
 
 
 @router.get("/entries", response_model=List[KnowledgeEntryResponse])
@@ -43,12 +43,12 @@ def search_entries(
     entry_type: Optional[str] = Query(None),
     db: Session = Depends(get_db),
 ):
-    return svc.search_entries(db, keyword=keyword, category_id=category_id, entry_type=entry_type)
+    return knowledge_service.search_entries(db, keyword=keyword, category_id=category_id, entry_type=entry_type)
 
 
 @router.get("/entries/{entry_id}", response_model=KnowledgeEntryResponse)
 def get_entry(entry_id: int, db: Session = Depends(get_db)):
-    entry = svc.get_entry(db, entry_id)
+    entry = knowledge_service.get_entry(db, entry_id)
     if not entry:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Knowledge entry not found")
     return entry
@@ -56,7 +56,7 @@ def get_entry(entry_id: int, db: Session = Depends(get_db)):
 
 @router.put("/entries/{entry_id}", response_model=KnowledgeEntryResponse)
 def update_entry(entry_id: int, payload: KnowledgeEntryUpdate, db: Session = Depends(get_db)):
-    entry = svc.get_entry(db, entry_id)
+    entry = knowledge_service.get_entry(db, entry_id)
     if not entry:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Knowledge entry not found")
-    return svc.update_entry(db, entry, **payload.model_dump(exclude_unset=True))
+    return knowledge_service.update_entry(db, entry, **payload.model_dump(exclude_unset=True))

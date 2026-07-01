@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Text
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, JSON
 from sqlalchemy.orm import relationship
 
 from app.models.database import Base, TimestampMixin
@@ -29,6 +29,6 @@ class KnowledgeEntry(Base, TimestampMixin):
     tags = Column(String(500), nullable=True)
     source_url = Column(String(500), nullable=True)
     difficulty_level = Column(Integer, nullable=False, default=1)
-    metadata_json = Column(Text, nullable=True, name="metadata")
+    metadata_json = Column(JSON, nullable=True, name="metadata")
 
     category = relationship("KnowledgeCategory", back_populates="entries")
