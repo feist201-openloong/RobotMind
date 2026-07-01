@@ -90,12 +90,25 @@ class CodeSnippetResponse(CodeSnippetBase):
 class ArticleBase(BaseModel):
     title: str
     content: str
-    category: Optional[str] = None
+    markdown_content: str
+    summary: Optional[str] = None
     tags: Optional[str] = None
+    status: str = "draft"
+    word_count: int = 0
+    reading_time: int = 1
 
 
 class ArticleCreate(ArticleBase):
     pass
+
+
+class ArticleUpdate(BaseModel):
+    title: Optional[str] = None
+    content: Optional[str] = None
+    markdown_content: Optional[str] = None
+    summary: Optional[str] = None
+    tags: Optional[str] = None
+    status: Optional[str] = None
 
 
 class ArticleResponse(ArticleBase):
